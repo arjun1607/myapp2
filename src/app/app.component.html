@@ -111,8 +111,25 @@ Entered value : {{data1}}
 
 
 
- 
+ <h3>Router Link example</h3>
+ <a [routerLink]="['/student']">Student</a> ------
+ <a [routerLink]="['/studentdetails']">Student Details</a> <br>
+ <a [routerLink]="['/Parentdetails']">Parent Details</a> <br>
+ <button (click)="student()">Show Student</button>
+ <div>
+  <router-outlet></router-outlet>
+ </div>
 
+
+
+ <h2>Service example</h2>
+ <button (click)="getmessage()">Get message</button>
+ <h2>service example : {{msg}}</h2> 
+ <h2> {{othersms}} </h2>
+
+ <h1>Checking singleton / different object made for service</h1>
+ <app-comp1></app-comp1>
+ <app-comp2></app-comp2>
 
 
 
@@ -214,7 +231,8 @@ Enter your name : <input type="text" #txtname (keyup)="0"/>
 </ul>
 
 
-
+<!-- note:- remove duplicate constructor of router to run this -->
+<!--                                               
 <h2>TrackBy example</h2>
 <table border="1">
   <tr *ngFor="let s of Employees; let i=index; trackBy:trackbystudentid">
@@ -228,7 +246,7 @@ Enter your name : <input type="text" #txtname (keyup)="0"/>
 </table>
 <br>
 <button (click)="getmorestudents()">Get more students</button>
-
+-->
 
 
 <h2>Grouping with ngFor example</h2>

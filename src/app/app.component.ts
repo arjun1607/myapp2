@@ -1,11 +1,36 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MessageService } from './message.service';
+import { OthermessageService } from './othermessage.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  preserveWhitespaces: true,
+  providers: [MessageService, OthermessageService]         // either put here or in providers:[] of app.module.ts
 })
 export class AppComponent {
+
+  // shorthand for defining and initializing a class property called router of type Router for the class, dependency injection => Angular framework is responsible for creating and providing the required objects to the class through its constructor
+  constructor(private router:Router, private _messageService:MessageService){}      
+  student(){
+    // we can use if else to decide where to navigate
+    this.router.navigate(['/student']);    //objects injected through the constructor can be used throughout the class
+  }
+
+  msg:string='';                // used for service example
+  othersms:string='';
+  ngOnInit(){
+    // this.msg=this._messageService.getmessage();          
+  }
+  getmessage(){
+    this.msg=this._messageService.getmessage(); 
+    this.othersms=this._messageService.getmsgfromotherservice(); 
+  }
+
+
+
   title = 'myapp2';
   firstname='Arjun'; lastname='Pahadia';      // used to show interpolation
   a:number=10; b:number=20;
@@ -102,9 +127,8 @@ export class AppComponent {
     {
       'name':'Aakash'
     }
-  ]
-
-
+  ];
+  /* 
   Employees:any[];                   // used for TrackBy
   constructor(){
     this.Employees=[
@@ -128,6 +152,7 @@ export class AppComponent {
       }
     ];
   }
+  
   getmorestudents():void{    
     this.Employees=[
       {
@@ -159,6 +184,7 @@ export class AppComponent {
   trackbystudentid(index:number, student:any){
     return student.studentid;                          // return unique identifier
   }
+  */
 
 
   Countrydetails:any[]=[                    // used for grouping with ngFor
