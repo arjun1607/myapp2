@@ -1,3 +1,121 @@
+<h1>Welcome to {{title}}</h1>       <!-- ONE WAY BINDING - INTERPOLATION -->
+<p>developed by {{firstname +' '+ lastname}} </p>
+<p>{{a+b}}</p>       <!-- can add two numbers using interpolation -->
+
+<p [innerHTML]="title"></p>          <!-- PROPERTY BINDING -->
+<img [src]="'D:\angular\myapp2\src\favicon.ico'" [height]="100" [width]="100">
+
+
+<h2>Attribute binding example</h2>
+<table [attr.border]="bdr" height="200" width="300">
+  <tr>
+    <td [attr.colspan]="cols">Student's Detail</td>
+  </tr>
+  <tr>
+    <td>ID</td>
+    <td>Name</td>
+    <td>Class</td>  
+  </tr>
+  <tr>
+    <td>001</td>
+    <td>Arjun</td>
+    <td>10th B</td>  
+  </tr>
+</table>
+
+
+<h2>Event binding Example</h2>
+<button (click)="showdata()">Click me</button>
+
+
+<h2>Two way binging example</h2>
+Enter Your Name : <input [value]="data" (input)="data = ($any($event.target).value)"> <br>
+Your Name : {{data}} <br>
+
+
+<h2>Two way binding using NG-MODEL</h2>
+<input type="text" [(ngModel)]="data1"> <br>
+Entered value : {{data1}}
+
+
+
+<h2>Inbuilt Pipes</h2>
+<table border="5">
+  <tr>
+    <th>Emp Code</th>
+    <th>Emp Name</th>
+    <th>Salary</th>
+    <th>Date of birth</th>
+  </tr>
+  <tr *ngFor="let e of employees">
+    <td>{{e.code}}</td>
+    <td>{{e.name | uppercase}}</td>          <!-- applied inbuilt pipe -->
+    <td>{{e.salary}}</td>
+    <td>{{e.dob}}</td>
+  </tr>
+</table>
+
+<div>
+  {{dob}} <br>
+  Medium : {{dob|date:"medium" | lowercase}} <br>
+  Specific format : {{dob|date:"dd/MM/yyyy"}} <br>
+  Medium time : {{dob|date:"mediumTime"}} <br> <br>
+
+  Original date : {{dob}} <br>
+  Short date : {{dob|date:"shortDate"}} <br>
+  Long date : {{dob|date:"longDate"}} <br>
+  Full date : {{dob|date:"fullDate" | uppercase}} <br> <br>
+
+  Salary : {{salary|currency:"USD":true}}   <!-- Parameterized pipe, true makes $ symbol visible -->
+</div>
+
+<h2>Pipes example with string</h2>
+<div> 
+  {{name|uppercase}} -- {{position|lowercase}} <br>
+  {{work|titlecase}} <br>
+  {{work|slice:5}} <br>
+  {{work|slice:5:8}} 
+</div>
+
+<h2>Pipe example with percent</h2>
+<div>
+  originial : {{mynumber}} <br>
+  {{mynumber|percent}} <br>
+  {{mynumber|percent:'2.4-8'}} <br>
+</div>
+
+<h2>Pipe example with percent</h2>
+<div>
+  originial : {{mynumber}} <br>
+  {{mynumber|number}} <br>
+  {{mynumber|number:'2.4-8'}} <br>
+  Salary : {{mynumber|currency:'INR':'code'}} 
+</div>
+
+<h2>Json pipe example</h2>
+<div>
+  {{empyes}} <br>
+  {{empyes|json}} <br>
+  {{empyes|slice:1:3 |json}} <br>
+</div>
+
+<h2>Custom pipe example</h2>
+<table border="5">
+  <tr *ngFor="let e of empos" >
+    <td> {{e.code}} </td>
+    <td> {{e.name | mypipe:e.gender}} </td>
+    <td> {{e.gender}} </td>
+    <td> {{e.salary}} </td>
+  </tr>
+</table>
+
+
+
+ 
+
+
+
+
 <h1>Parent Component</h1>
 <!-- Parent Component : <input type="text" #Pcomp (keyup)="0">
 <app-child [Pdata]="Pcomp.value"></app-child> -->
@@ -5,67 +123,72 @@ value of child component : {{Cdata}}
 
 <app-child (childevent)="getdata($event)"></app-child>
 
+
+
 <h2>Using NgIf</h2>
 <input type="radio" name="radio1" (click)="changeValue(true)"> True                     
 <!-- keeping name same only one is checked at a time-->
 <input type="radio" name="radio1" (click)="changeValue(false)"> False
 
-<!-- <div *ngIf="isValid">
+<div *ngIf="isValid">
   This is valid data
 </div>
 <div *ngIf="!isValid">
   This is not valid data
-</div> -->
+</div>
 
-<!-- <div *ngIf="isValid; else elseblock">
-  This is valid data
+<div *ngIf="isValid; else elseblock">
+  This is valid data (ngIf with else)
 </div>
 <ng-template #elseblock>
   <div>
-    This is not valid data
+    This is not valid data (ngIf with else)
   </div>
-</ng-template> -->
+</ng-template>
 
 <div *ngIf="isValid; then thenblock else elseblock"></div>
 <ng-template #thenblock>
   <div>
-    This is valid data
+    This is valid data (ngIf with then and else)
   </div>
 </ng-template>
 <ng-template #elseblock>
   <div>
-    This is not valid data
+    This is not valid data (ngIf with then and else)
   </div>
 </ng-template>
 
 <!-- without * -->
-<!-- <ng-template [ngIf]="isValid">
+<ng-template [ngIf]="isValid">
   <div>
-    This is valid data
+    This is valid data (wihout *)
   </div>
-</ng-template>  -->
+</ng-template> 
 
 
+
+
+<h2>Using ngSwitch</h2>
 <div [ngSwitch]="name">
   <div *ngSwitchCase="'Ram'"> Hello Ram</div>
   <div *ngSwitchCase="'Mohan'"> Hello Mohan</div>
   <div *ngSwitchCase="'Shyam'"> Hello Shyam</div>
 
-  <!-- <div *ngSwitchCase="'Mohan'"> Hello Mohan</div> -->   
+  <div *ngSwitchCase="'Mohan'"> Hello Mohan 2nd time becoz NO BREAK </div>   
   <!-- there is not break statement so we can get output again-->
 
   <div *ngSwitchDefault>No Data Matched</div>
-    <!-- without * -->
-  <!-- 
+  
+  <!-- without * -->
     <ng-template [ngSwitchCase]="'Mohan'">
-      <div>Hello Mohan</div>
+      <div>Hello Mohan 3rd time (without *) </div>
     </ng-template> 
 
     <ng-template ngSwitchDefault>
-      <div>No Data Matched</div>
-    </ng-template> -->
+      <div>No Data Matched 2nd time (without *) </div>
+    </ng-template> 
+ 
 </div>
-
 
 <!-- Another way  -->
 Enter your name : <input type="text" #txtname (keyup)="0"/>
@@ -74,3 +197,64 @@ Enter your name : <input type="text" #txtname (keyup)="0"/>
   <div *ngSwitchCase="'Mohan'"> Hello Mohan</div>
   <div *ngSwitchCase="'Shyam'"> Hello Ram</div>
 </div>
+
+
+
+<h2>Using ngFor</h2>
+<ul>
+  <li *ngFor="let student of Students; let i=index; let f=first; let l=last; let o=odd; let e=even;">
+    {{i+1}} - {{student.name}} - {{f}} - {{l}} - {{o}} - {{e}}
+  </li>
+
+  <!-- without * -->
+  <ng-template ngFor let-student [ngForOf]="Students">
+    <li> {{student.name}} </li>
+  </ng-template> 
+
+</ul>
+
+
+
+<h2>TrackBy example</h2>
+<table border="1">
+  <tr *ngFor="let s of Employees; let i=index; trackBy:trackbystudentid">
+    <td>{{i+1}}</td>
+    <td>{{s.studentid}}</td>
+    <td>{{s.name}}</td>
+    <td>{{s.gender}}</td>
+    <td>{{s.age}}</td>
+    <td>{{s.course}}</td>
+  </tr>
+</table>
+<br>
+<button (click)="getmorestudents()">Get more students</button>
+
+
+
+<h2>Grouping with ngFor example</h2>
+<ul *ngFor="let group of Countrydetails">
+  <li> {{group.country}} </li>
+  <ul *ngFor="let person of group.people">
+    <li> {{person.name}} </li>
+  </ul>
+</ul>
+
+
+
+<h2>Using ngStyle</h2>
+<ul *ngFor="let person of people">
+  <li [ngStyle]="{'color':getcolor(person.country)}">  
+    {{person.name}} -- {{person.country}}
+  </li>
+</ul>
+
+
+
+<h2> Using ngClass</h2>
+<p [ngClass]="'one two'">Using ngClass with string example</p>
+<div *ngFor="let user of users" [ngClass]="'three four'">
+  {{user}}
+</div>
+<p [ngClass]="['one', 'two']">Using ngClass with array example</p>
+<p [ngClass]="{'one':true, 'three':false}">Using ngClass as object</p>
+<div [ngClass]="getCssClass('mode')">Using ngClass with component method</div>
